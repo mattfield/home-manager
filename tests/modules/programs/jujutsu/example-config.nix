@@ -1,8 +1,8 @@
-{ pkgs, config, ... }:
-
-let
-  configDir = if pkgs.stdenv.isDarwin then "Library/Application Support" else ".config";
-in
+{
+  pkgs,
+  config,
+  ...
+}:
 {
   programs.jujutsu = {
     enable = true;
@@ -17,8 +17,8 @@ in
   };
 
   nmt.script = ''
-    assertFileExists 'home-files/${configDir}/jj/config.toml'
-    assertFileContent $(normalizeStorePaths 'home-files/${configDir}/jj/config.toml') \
+    assertFileExists 'home-files/.config/jj/config.toml'
+    assertFileContent $(normalizeStorePaths 'home-files/.config/jj/config.toml') \
       ${builtins.toFile "expected.toml" ''
         [merge-tools.ediff]
         merge-args = ["$left", "$right", "$base", "$output"]
